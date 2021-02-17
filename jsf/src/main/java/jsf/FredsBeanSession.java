@@ -1,12 +1,13 @@
 package jsf;
 
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Named
-@RequestScoped
-public class FredsBean {
+@SessionScoped
+public class FredsBeanSession implements Serializable {
     LocalDateTime now = LocalDateTime.now();
 
     public LocalDateTime getJetzt() {
