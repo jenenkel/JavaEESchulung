@@ -9,13 +9,15 @@
 </h:head>
 
 <h:body>
-    <h3>Das ist dein Outfit.</h3>
+    <h3>Hallo #{customer.firstName} #{customer.lastName}, </h3>
+    <p>Danke für deinen Einkauf, eine Email wurde an #{customer.email} gesendet.</p>
+    <h4>Das ist dein Outfit.</h4>
     <ul>
-        <ui:repeat value="#{wardrobe.selectedItems}" var="currentElement">
+        <ui:repeat value="#{store.selectedItems}" var="currentElement">
                 <li>#{currentElement.name}</li>
         </ui:repeat>
     </ul>
-    <h3>Die Summe aller Kleidungsstücke ist: #{wardrobe.sum}</h3>
+    <h3>Die Summe aller Kleidungsstücke ist: #{store.sum}</h3>
 </h:body>
 
 </html>

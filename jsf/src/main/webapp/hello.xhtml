@@ -9,24 +9,41 @@
 </h:head>
 
 <h:body>
-    <h3>Was ziehe ich heute an?</h3>
     <h:form>
-    <c:forEach items="#{wardrobe.clothing}" var="entry">
-        <p:dataTable value="#{entry.value}" var="singleItem">
-            <p:column>
-                <p:selectBooleanCheckbox value="#{singleItem.selected}" />
-            </p:column>
-            <p:column>
-                <f:facet name="header">#{entry.key}</f:facet>
-                #{singleItem.name}
-            </p:column>
-            <p:column>
-                <f:facet name="header">Preis</f:facet>
-                #{singleItem.price}
-            </p:column>
-        </p:dataTable>
-    </c:forEach>
-        <p:commandButton value="Ja das ist toll" action="result" />
+        <h3>Kontakt</h3>
+        <p:outputLabel value="Vorname: " />
+        <p:inputText id="firstName" value="#{customer.firstName}" />
+        <p:messages for="firstName" />
+
+        <p:outputLabel value="Nachname: " />
+        <p:inputText id="lastName" value="#{customer.lastName}" />
+        <p:messages for="lastName" />
+
+        <p:outputLabel value="Email: " />
+        <p:inputText id="email" value="#{customer.email}" />
+        <p:messages for="email" />
+
+        <p:outputLabel value="ZipCode: " />
+        <p:inputText id="zipCode" value="#{customer.zipCode}" />
+        <p:messages for="zipCode" />
+
+        <h3>Auswahl Kleidung</h3>
+        <c:forEach items="#{store.clothing}" var="entry">
+            <p:dataTable value="#{entry.value}" var="singleItem">
+                <p:column>
+                    <p:selectBooleanCheckbox value="#{singleItem.selected}" />
+                </p:column>
+                <p:column>
+                    <f:facet name="header">#{entry.key}</f:facet>
+                    #{singleItem.name}
+                </p:column>
+                <p:column>
+                    <f:facet name="header">Preis</f:facet>
+                    #{singleItem.price}
+                </p:column>
+            </p:dataTable>
+        </c:forEach>
+        <p:commandButton value="Kaufen" action="result" />
     </h:form>
 </h:body>
 </html>
