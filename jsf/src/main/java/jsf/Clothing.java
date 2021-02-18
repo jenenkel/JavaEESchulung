@@ -1,11 +1,16 @@
 package jsf;
 
+import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
+
 public class Clothing {
-    String name;
-    boolean selected = false;
+    private String name;
+    private boolean selected = false;
+    private double price;
 
     public Clothing(String name) {
         this.name = name;
+        this.price = Math.round(ThreadLocalRandom.current().nextDouble(0, 100));
     }
 
     public String getName() {
@@ -22,5 +27,9 @@ public class Clothing {
 
     public void setSelected(boolean selected) {
         this.selected = selected;
+    }
+
+    public double getPrice() {
+        return price;
     }
 }

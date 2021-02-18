@@ -1,15 +1,18 @@
 package jsf;
 
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
+import java.io.Serializable;
 import java.util.*;
 import java.util.stream.Collectors;
 
 @Named
-@RequestScoped
-public class Wardrobe {
+@SessionScoped
+public class Wardrobe implements Serializable {
 
     private Map<String, List<Clothing>> clothing;
+    private double sum;
 
     public Wardrobe() {
         clothing = new TreeMap<>();
@@ -23,17 +26,19 @@ public class Wardrobe {
         return clothing;
     }
 
-    public List<String> getSelectedItems() {
-        List<String> result = new ArrayList<>();
+    public List<Clothing> getSelectedItems() {
+        List<Clothing> result = new ArrayList<>();
         for (Map.Entry<String, List<Clothing>> entry : clothing.entrySet()) {
-            List<String> selectedItems = entry.getValue().stream()
+            List<Clothing> selectedItems = entry.getValue().stream()
                     .filter(Clothing::getSelected)
-                    .map(Clothing::getName)
                     .collect(Collectors.toList());
             result.addAll(selectedItems);
         }
-
+        sum = result.stream().mapToDouble(Clothing::getPrice).sum();
         return result;
     }
 
+    public double getSum() {
+        return sum;
+    }
 }
