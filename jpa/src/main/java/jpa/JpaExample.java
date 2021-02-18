@@ -1,6 +1,7 @@
 package jpa;
 
 import javax.persistence.*;
+import java.util.Arrays;
 
 public class JpaExample {
     public static void main(String[] args) throws Exception {
@@ -8,11 +9,20 @@ public class JpaExample {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         try {
             // TODO Objekte erzeugen
+            Person father = new Person("Bob");
+            Person mother = new Person("Alice");
+            Person son = new Person("Carlos");
+
+            Family theSmiths = new Family("Smith", Arrays.asList(father, mother, son));
+            father.setFamily(theSmiths);
+            mother.setFamily(theSmiths);
+            son.setFamily(theSmiths);
 
             EntityTransaction transaction = entityManager.getTransaction();
             transaction.begin();
             try {
                 // TODO Objekte persistieren
+                entityManager.persist(theSmiths);
 
                 transaction.commit();
             } catch (Exception ex) {
@@ -22,8 +32,9 @@ public class JpaExample {
 
             entityManager.clear();
             // TODO Objekte abfragen
-            Query query = entityManager.createQuery("select x from ... x where ...");
-            System.out.println(query.getResultList());
+            Query query = entityManager.createQuery("select f from Family f where f.name = 'Smith'", Family.class);
+            Family family = (Family) query.getSingleResult();
+            System.out.println(family.getMembers());
         } catch (Exception ex) {
             ex.printStackTrace();
         } finally {

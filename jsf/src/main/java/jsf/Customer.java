@@ -2,15 +2,21 @@ package jsf;
 
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 
-@Named
-@SessionScoped
-public class Customer implements Serializable {
+@Entity
+public class Customer {
+    @Id
+    @GeneratedValue
+    private long id;
+
     @NotBlank(message = "darf nicht leer sein")
     private String firstName;
     @Size(min = 2, max = 50, message = "muss zwischen 2 und 50 Zeichen haben")
@@ -19,6 +25,10 @@ public class Customer implements Serializable {
     private String email;
     @Pattern(regexp = "\\d{5}", message = "muss 5 Ziffern haben")
     private String zipCode;
+
+    public long getId() {
+        return id;
+    }
 
     public String getFirstName() {
         return firstName;

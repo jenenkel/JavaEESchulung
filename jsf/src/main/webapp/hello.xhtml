@@ -12,23 +12,23 @@
     <h:form>
         <h3>Kontakt</h3>
         <p:outputLabel value="Vorname: " />
-        <p:inputText id="firstName" value="#{customer.firstName}" />
+        <p:inputText id="firstName" value="#{shopService.customer.firstName}" />
         <p:messages for="firstName" />
 
         <p:outputLabel value="Nachname: " />
-        <p:inputText id="lastName" value="#{customer.lastName}" />
+        <p:inputText id="lastName" value="#{shopService.customer.lastName}" />
         <p:messages for="lastName" />
 
         <p:outputLabel value="Email: " />
-        <p:inputText id="email" value="#{customer.email}" />
+        <p:inputText id="email" value="#{shopService.customer.email}" />
         <p:messages for="email" />
 
         <p:outputLabel value="ZipCode: " />
-        <p:inputText id="zipCode" value="#{customer.zipCode}" />
+        <p:inputText id="zipCode" value="#{shopService.customer.zipCode}" />
         <p:messages for="zipCode" />
 
         <h3>Auswahl Kleidung</h3>
-        <c:forEach items="#{store.clothing}" var="entry">
+        <c:forEach items="#{shopService.clothing}" var="entry">
             <p:dataTable value="#{entry.value}" var="singleItem">
                 <p:column>
                     <p:selectBooleanCheckbox value="#{singleItem.selected}" />
@@ -43,7 +43,7 @@
                 </p:column>
             </p:dataTable>
         </c:forEach>
-        <p:commandButton value="Kaufen" action="result" />
+        <p:commandButton value="Kaufen" action="#{shopService.checkout}" />
     </h:form>
 </h:body>
 </html>
